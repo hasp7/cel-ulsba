@@ -15,7 +15,7 @@ const DIR = __dirname + '/';
 
 const erros = [];
 const dom = new JSDOM(fs.readFileSync(DIR + 'index.html', 'utf8'), {
-  runScripts: 'outside-only', url: 'https://hasp7.github.io/cel-genai-med/recursos/personalizacao/'
+  runScripts: 'outside-only', url: 'https://hasp7.github.io/cel-ulsba/recursos/personalizacao/'
 });
 const w = dom.window;
 w.addEventListener('error', e => erros.push('window error: ' + e.message));

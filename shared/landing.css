@@ -10,6 +10,11 @@
   --cel-white: #FFFFFF;
   --heading-font: "Libre Franklin", Helvetica, sans-serif;
   --body-font: "Open Sans", Helvetica, sans-serif;
+  /* Acentos SNS, tirados do site da ULSBA (tema uls_global): só marcam o que é "agora"
+     e a faixa do topo. A base continua a ser a identidade CeL dos decks. */
+  --sns-verde: #007D5A;
+  --sns-azul: #3E75B5;
+  --sns-vermelho: #CE4A43;
 }
 
 * { box-sizing: border-box; }
@@ -42,7 +47,7 @@ header { margin-bottom: 56px; }
 
 .accent-line {
   width: 64px; height: 3px;
-  background: var(--cel-secondary);
+  background: var(--sns-verde);
   margin-bottom: 24px;
 }
 
@@ -315,8 +320,8 @@ footer img { height: 28px; opacity: 0.7; }
 }
 
 .tl-sessao.passou { background: var(--cel-primary); border-color: var(--cel-primary); }
-.tl-sessao.hoje   { background: var(--cel-secondary); border-color: var(--cel-secondary); box-shadow: 0 0 0 4px rgba(109,109,62,.18); }
-.tl-sessao.proxima { border-color: var(--cel-secondary); border-width: 3px; }
+.tl-sessao.hoje   { background: var(--sns-verde); border-color: var(--sns-verde); box-shadow: 0 0 0 4px rgba(0,125,90,.18); }
+.tl-sessao.proxima { border-color: var(--sns-verde); border-width: 3px; }
 
 .tl-hoje {
   position: absolute;
@@ -324,7 +329,7 @@ footer img { height: 28px; opacity: 0.7; }
   bottom: 0;
   left: var(--x);
   width: 1px;
-  background: var(--cel-secondary);
+  background: var(--sns-verde);
   opacity: .5;
   pointer-events: none;
 }
@@ -338,7 +343,7 @@ footer img { height: 28px; opacity: 0.7; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
-  color: var(--cel-secondary);
+  color: var(--sns-verde);
   opacity: 1;
 }
 
@@ -365,7 +370,7 @@ footer img { height: 28px; opacity: 0.7; }
 
 .tl-legenda i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; border: 2px solid var(--cel-light); background: var(--cel-white); font-style: normal; }
 .tl-legenda i.passou { background: var(--cel-primary); border-color: var(--cel-primary); }
-.tl-legenda i.proxima { border-color: var(--cel-secondary); border-width: 3px; }
+.tl-legenda i.proxima { border-color: var(--sns-verde); border-width: 3px; }
 
 /* ---- próximos eventos ---- */
 
@@ -408,3 +413,78 @@ footer img { height: 28px; opacity: 0.7; }
   .ev-quando { width: auto; }
   .ev-daqui { display: inline; margin-left: 8px; }
 }
+
+/* ============================================================
+   ULSBA — faixa SNS, percurso e rodapé com a barra de cofinanciamento.
+   ============================================================ */
+
+/* Faixa fina no topo, com as três cores do SNS. Decorativa. */
+.sns-faixa { display: flex; height: 4px; }
+.sns-faixa i { flex: 1; }
+.sns-faixa i:nth-child(1) { background: var(--sns-verde); flex: 3; }
+.sns-faixa i:nth-child(2) { background: var(--sns-azul); }
+.sns-faixa i:nth-child(3) { background: var(--sns-vermelho); flex: .5; }
+
+.filtro button[aria-pressed="true"] { background: var(--sns-verde); border-color: var(--sns-verde); }
+
+/* ---- percurso ---- */
+.pc-edicao { margin-bottom: 28px; }
+.pc-cab { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 10px; }
+.pc-cab b { font-family: var(--heading-font); font-weight: 600; color: var(--cel-primary); }
+.pc-cab span { font-size: 0.82rem; color: var(--cel-slate); }
+
+.pc-grelha {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.pc-grelha.completo { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.pc-sessao {
+  background: var(--cel-white);
+  border-top: 3px solid #E4E4E4;
+  padding: 14px 16px 16px;
+  line-height: 1.45;
+}
+.pc-sessao.dada { opacity: .72; border-top-color: var(--cel-primary); }
+.pc-sessao.atual { border-top-color: var(--sns-verde); box-shadow: 0 1px 0 rgba(0,125,90,.15), 0 0 0 1px rgba(0,125,90,.18); }
+
+.pc-rotulo {
+  display: block;
+  font-size: 0.7rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--cel-slate);
+}
+.pc-sessao.atual .pc-rotulo { color: var(--sns-verde); }
+.pc-quando { display: block; font-family: var(--heading-font); font-weight: 600; color: var(--cel-primary); margin: 2px 0 10px; }
+
+.pc-blocos { list-style: none; margin: 0; padding: 0; }
+.pc-blocos li { padding: 6px 0; border-top: 1px solid #EFEFEF; }
+.pc-hora { display: block; font-size: 0.74rem; color: var(--cel-slate); }
+.pc-tema { display: block; font-weight: 600; font-size: 0.92rem; color: var(--cel-text); }
+.pc-tema.tbd { font-weight: 400; font-style: italic; color: var(--cel-slate); }
+.pc-nota { display: block; margin-top: 8px; font-size: 0.76rem; color: var(--sns-azul); }
+.pc-fim { font-size: 0.85rem; color: var(--cel-slate); margin: 0 0 8px; }
+
+.percurso-toggle {
+  font: inherit; font-size: 0.85rem;
+  color: var(--cel-primary);
+  background: none;
+  border: 1px solid var(--cel-light);
+  padding: 6px 14px;
+  cursor: pointer;
+  margin: 0 0 48px;
+}
+.percurso-toggle:hover, .percurso-toggle:focus-visible { border-color: var(--sns-verde); color: var(--sns-verde); }
+
+/* ---- rodapé: barra de cofinanciamento (obrigatória na operação) + assinatura CeL ---- */
+footer { flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+footer img.financiamento { height: auto; width: 100%; max-width: 640px; opacity: 1; }
+footer .assinatura { display: flex; align-items: center; justify-content: center; gap: 16px; }
+
+@media (max-width: 720px) {
+  .wrap { padding: 40px 16px 64px; }
+  h1 { font-size: 1.8rem; }
+  .pc-grelha { grid-template-columns: 1fr; }
+}
+.tl-zoom button[aria-pressed="true"] { color: var(--sns-verde); border-color: var(--sns-verde); }

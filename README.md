@@ -1,95 +1,72 @@
-# Cursos GenAI — IA Generativa para Profissionais de Saúde
+# IA Generativa na ULS Baixo Alentejo
 
-Decks e materiais dos cursos **GenAI** da [Ciência e Letras](https://github.com/hasp7):
-`GenAI:med` (médicos), `GenAI:enf` (enfermeiros) e a linha ULSBA. 30 horas e 8 sessões cada.
+Landing e decks das edições de IA generativa que a [Ciência e Letras](https://github.com/hasp7)
+dá para a **ULS Baixo Alentejo**: *ChatGPT, ChatBots na Gestão e Prática Profissional em Saúde*
+(terças) e *ChatGPT, ChatBots para Médicos* (segundas). 30 horas e 8 sessões cada.
 
-**Site:** https://hasp7.github.io/cel-genai-med/
+**Site:** https://hasp7.github.io/cel-ulsba/
 
-> O repositório chama-se `cel-genai-med` de quando só havia a linha de medicina. Se for
-> renomeado, o URL do Pages muda com ele (o GitHub mantém um redireccionamento do nome antigo).
+- **Origem:** clone de [`hasp7/cel-genai-med`](https://github.com/hasp7/cel-genai-med) a
+  2026-10-02, com o histórico. A partir daqui seguem separados: o que mudar lá não desce para aqui
+  sozinho, e vice-versa.
+- **Catálogo e calendário:** conteúdos, atividades, edições e quizzes vivem em
+  [`marianacpais/cel-genai-healthcare-courses`](https://github.com/marianacpais/cel-genai-healthcare-courses)
+  (`courses/genai-ulsba/`). Este repo é só o lado publicado.
+- **Identidade visual:** contexto `cel` em `claude/design-md/` no hasp-HQ, com acentos SNS
+  (verde `#007D5A`, azul `#3E75B5`, vermelho `#CE4A43`, tirados do site da ULSBA) só no que marca
+  "agora" e na faixa do topo. Sem logótipos da ULSBA.
 
-- **Coordenação:** Hélder Palheira, Mariana Canelas Pais
-- **Catálogo e calendário:** os conteúdos, atividades, edições e quizzes vivem em
-  [`marianacpais/cel-genai-healthcare-courses`](https://github.com/marianacpais/cel-genai-healthcare-courses).
-  Este repo é só o lado publicado — os decks.
-- **Identidade visual:** contexto `cel` em `claude/design-md/` no hasp-HQ. O `shared/cel-base.css`
-  é uma cópia; alterações de identidade fazem-se lá e descem para aqui.
+## Barra de cofinanciamento — obrigatória
+
+A operação é cofinanciada (Pessoas 2030 · Portugal 2030 · União Europeia · República Portuguesa –
+Saúde · SNS), e a publicitação do cofinanciamento tem de estar em **tudo** o que é publicado:
+
+- **Landing:** rodapé, centrada (`shared/ulsba-sup.png`).
+- **Decks:** cada `aula-N-M/index.html` inclui, antes do `Reveal.initialize`,
+  `<script src="../shared/barra-financiamento.js"></script>`, que põe a barra pequena e centrada no
+  fundo de cada slide. Elementos posicionados no fundo do slide ficam a 44px ou mais.
+
+A imagem é a que veio com os documentos da operação; não se recorta nem se recolore.
 
 ## Estrutura
 
 | Caminho | O que é |
 |---|---|
-| `index.html` | Hub: linha temporal das edições, próximos blocos, e o acesso aos decks — lista **só** as sessões já publicadas |
-| `shared/edicoes.js` | Dados das edições que alimentam a linha temporal e os próximos blocos |
-| `aula-N/` | Deck de um bloco (`index.html`, reveal.js). `aula-1/` é o bloco **1.1**; os blocos seguintes ficam em `aula-1-2/`, `aula-2-1/` e assim por diante |
-| `shared/` | `cel-base.css` (identidade dos decks), `landing.css`, logótipo |
-| `versions/` | Snapshots congelados por edição — não se mexe depois de criados |
-| `VERSIONS.md` | O que mudou entre versões, e que edição viu o quê |
+| `index.html` | Hub: linha temporal, percurso e decks de apresentação |
+| `shared/edicoes.js` | Datas, horários e temas das duas edições — alimenta a linha temporal e o percurso |
+| `shared/barra-financiamento.js` | Injeta a barra de cofinanciamento nos slides |
+| `shared/` | `cel-base.css` (identidade dos decks), `landing.css`, logótipo CeL, `ulsba-sup.png` |
+| `recursos/` | Materiais de apoio que não dependem de edição |
+| `aula-N-M/` | Deck do bloco M da sessão N, quando existir — ainda nenhum |
+| `versions/` | Snapshots congelados por edição |
 
 ## O hub
 
-A página de entrada deixou de ser um índice de decks e passou a acompanhar as turmas.
-Três secções, todas filtráveis pelo seletor de curso no topo:
+Três secções, todas filtráveis pelo seletor de edição no topo:
 
-- **Linha temporal** — uma faixa por edição, as oito sessões no dia em que acontecem, e a marca
-  de hoje. Ponto cheio é sessão dada; a que tem o contorno grosso é a seguinte.
-- **Próximos blocos** — os oito blocos seguintes em todas as edições, com data, horário e tema.
-- **Decks das sessões** — a matriz de sempre, agora com uma coluna por edição publicada.
+- **Linha temporal** — uma faixa por edição, as oito sessões no dia em que acontecem, e a marca de hoje.
+- **Percurso** — por edição, a sessão anterior, a atual e a próxima, com o tema de cada bloco.
+  A *atual* é a de hoje ou, sem aula hoje, a primeira por dar. "Ver percurso completo" abre as oito.
+- **Decks de Apresentação** — uma coluna por bloco publicado, uma linha por edição. Sem o 1.1
+  (a apresentação do curso na ULSBA é outra) e, por agora, sem nenhum deck.
 
-A linha temporal e os próximos blocos calculam-se em cada visita a partir da data do browser:
-a página mantém-se sozinha entre edições e não precisa de ser tocada só porque passou uma semana.
+Tudo se calcula em cada visita a partir da data do browser: a página não precisa de ser tocada só
+porque passou uma semana.
 
-**Os dados vivem em `shared/edicoes.js`**, transcritos dos YAML em `courses/*/editions/` do repo
-dos cursos. A transcrição é manual até existir a skill de geração; quando um cronograma mudar,
-muda-se lá também.
+**Os dados vivem em `shared/edicoes.js`**, transcritos à mão dos YAML em
+`courses/genai-ulsba/editions/`. Quando um tema ficar definido lá, muda-se aqui também.
 
-> **O que não entra aqui.** O site é público. Ligações de Zoom, passwords, URLs de Moodle e a
-> escala ficam de fora do `edicoes.js` e de tudo o mais que seja publicado.
->
-> A escala saiu por decisão de 2026-09-18: quem dá cada bloco é a parte que mais muda nos YAML e
-> não há nada que detete a divergência, por isso uma página pública desatualizada engana mais do
-> que informa — e publicá-la punha a escala à vista antes de as pessoas serem convidadas. Quem dá
-> o quê chega aos formadores pelo convite de calendário, gerado do mesmo YAML pelo `eventos.mjs`.
-> Foi também o que dispensou gerar o `edicoes.js` a partir dos YAML: o que sobra — datas, horários
-> e temas — mexe pouco.
+> **O que não entra aqui.** O site é público. Zoom, passwords, URLs de Moodle, número de
+> formandos e a escala ficam de fora — quem dá o quê chega aos formadores pelo convite de
+> calendário, gerado do mesmo YAML pelo `eventos.mjs` da skill `cel-editions-op` (hasp-HQ).
 
 ## Como trabalhar
 
-> **O site é público.** A landing só deve listar sessões prontas a serem vistas — acrescentar a
-> linha da aula N ao `index.html` é o gesto que a publica. Uma aula pode existir em `aula-N/`
-> sem estar listada, mas quem souber o URL entra à mesma; para material que não pode circular,
-> ver a secção de arquivo no fim.
+**Publicar um deck:** criar `aula-N-M/`, incluir o `barra-financiamento.js`, e acrescentar a
+coluna e as células à tabela `#decks` do `index.html`. Acrescentar a coluna é o gesto que publica.
+A etiqueta da ligação é só a data em que *aquela* edição dá o bloco (`06/10`, `12/10`).
 
-**Enquanto a aula está viva:** editar `aula-N/index.html` directamente. O site actualiza-se no
-push, e as duas edições em curso apontam para o mesmo deck.
-
-**Etiqueta das ligações:** só a data, `<dia>/<mês>`, na qual *aquela* edição deu o bloco —
-`12/09` na 9ª, `11/09` na 10ª. O bloco já está identificado na linha, portanto repeti-lo na
-célula era ruído; a data é o que o formador precisa de confirmar num relance.
-
-**Código da edição no `?ed=`.** `med9`, `apmgf10`, `enf5` — o nome da edição, não o sufixo do
-`edition_id`. A 10ª de medicina e a 5ª de enfermagem acabam ambas em `ST`, por isso o sufixo não
-serve para distinguir. Código desconhecido cai na primeira edição da lista.
-
-**Um deck por bloco, não por aula.** Uma sessão de 4H tem dois blocos e cada um é um deck
-próprio, listado na sua linha da landing. `aula-1/` ficou com o nome antigo por já estar
-publicado; os que vierem seguem `aula-<aula>-<bloco>/`.
-
-**No fim de uma edição, congelar:**
-
-```bash
-mkdir -p versions/GenAIMed0926FM/aula-1
-cp -r aula-1/. versions/GenAIMed0926FM/aula-1/
-# corrigir o caminho do CSS no snapshot (fica dois níveis mais fundo)
-sed -i 's|\.\./shared/|../../../shared/|g' versions/GenAIMed0926FM/aula-1/index.html
-git add . && git commit -m "freeze(GenAIMed0926FM): aula 1"
-git tag GenAIMed0926FM-aula1-v1.0.0
-git push --follow-tags
-```
-
-Depois, na landing, mudar o `href` dessa edição para o snapshot — a etiqueta (`aula1-12/09`)
-mantém-se, muda só para onde aponta. A partir daí o deck vivo pode mudar à vontade sem alterar
-o que aquela turma viu.
+**Código da edição no `?ed=`:** `saude1` e `med1`. Código desconhecido cai na primeira.
 
 ## Arquivar / tirar de circulação
 

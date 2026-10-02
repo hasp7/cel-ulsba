@@ -3,26 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cursos GenAI — Ciência e Letras</title>
+<title>IA Generativa na ULS Baixo Alentejo</title>
 <link rel="stylesheet" href="shared/landing.css">
 </head>
 <body>
+<div class="sns-faixa" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="wrap">
 
 <header>
   <div class="accent-line"></div>
-  <h1>IA Generativa para Profissionais de Saúde</h1>
-  <p class="subtitle">Cursos GenAI · Ciência e Letras</p>
+  <h1>IA Generativa na ULS Baixo Alentejo</h1>
+  <p class="subtitle">ChatGPT e ChatBots em Saúde · Ciência e Letras para a ULS Baixo Alentejo</p>
 </header>
 
-<div class="filtro" id="filtro" role="group" aria-label="Filtrar por curso"></div>
+<div class="filtro" id="filtro" role="group" aria-label="Filtrar por edição"></div>
 
 <span class="label-tag">Onde vão as turmas</span>
 <h2>Linha temporal</h2>
 <p class="section-note">
-  Uma faixa por edição a decorrer, com as oito sessões no dia em que acontecem. O ponto cheio
-  é sessão dada, o vazio é sessão por dar, e a marca vertical é hoje. Passa o rato sobre um
-  ponto para ver o tema. O período aperta a escala às próximas semanas.
+  Uma faixa por edição, com as oito sessões no dia em que acontecem. O ponto cheio é sessão
+  dada, o vazio é sessão por dar, e a marca vertical é hoje. Passa o rato sobre um ponto para
+  ver o tema. O período aperta a escala às próximas semanas.
 </p>
 
 <div class="tl-zoom" id="zoom" role="group" aria-label="Período da linha temporal"></div>
@@ -31,17 +32,19 @@
   <div class="tl"><div class="tl-inner" id="timeline"></div></div>
 </div>
 
-<span class="label-tag">O que vem a seguir</span>
-<h2>Próximos blocos</h2>
+<span class="label-tag">Onde estamos</span>
+<h2>Percurso</h2>
 <p class="section-note">
-  Os oito blocos seguintes, por ordem, em todas as edições. Quem dá cada bloco não está aqui,
-  nem a sala nem o Moodle — isso chega aos formadores pelo convite de calendário, que sai do
-  mesmo cronograma.
+  Para cada edição, a sessão anterior, a atual e a próxima, com o tema de cada bloco.
+  O percurso completo mostra as oito sessões. Quem dá cada bloco, a sala e o Moodle não estão
+  aqui — chegam aos formadores pelo convite de calendário e aos formandos pelo Moodle.
 </p>
 
-<ul class="eventos" id="eventos"></ul>
+<div id="percurso"></div>
+<button type="button" class="percurso-toggle" id="percurso-tudo" aria-expanded="false">Ver percurso completo</button>
 
-<h2>Decks das sessões</h2>
+<span class="label-tag">Materiais</span>
+<h2>Decks de Apresentação</h2>
 <p class="section-note">
   Ponto de acesso aos decks. Cada sessão divide-se em blocos, e cada bloco tem o seu deck.
   A entrada abre o deck na data prevista para essa edição; os blocos vão sendo publicados
@@ -53,26 +56,19 @@
   <thead>
     <tr>
       <th scope="col">Edição</th>
-      <th scope="col"><span class="num">1.1</span>Apresentação do curso</th>
     </tr>
   </thead>
   <tbody>
-    <tr data-curso="med">
-      <th scope="row" class="current">9ª edição GenAI-Medicos-CeL<br><span class="pill">sábados · 08h30–12h30</span></th>
-      <td><a href="aula-1/?ed=med9">12/09</a></td>
+    <tr data-curso="saude">
+      <th scope="row" class="current">Gestão e Prática Profissional em Saúde · 1ª edição<br><span class="pill">terças · 14h00–18h00</span></th>
     </tr>
     <tr data-curso="med">
-      <th scope="row" class="current">10ª edição GenAI-APMgF<br><span class="pill">sextas · 15h00–19h00</span></th>
-      <td><a href="aula-1/?ed=apmgf10">11/09</a></td>
-    </tr>
-    <tr data-curso="enf">
-      <th scope="row" class="current">5ª edição GenAI-Enfermeiros<br><span class="pill">segundas · 16h00–20h00</span></th>
-      <td><a href="aula-1/?ed=enf5">21/09</a></td>
+      <th scope="row" class="current">Médicos · 1ª edição<br><span class="pill">segundas · 14h00–18h00</span></th>
     </tr>
   </tbody>
 </table>
 </div>
-<p class="section-note" id="sem-decks" hidden>Sem decks publicados para este curso.</p>
+<p class="section-note sem-decks" id="sem-decks" hidden>Ainda sem decks publicados. Cada bloco aparece aqui, com a data da edição, quando o deck estiver pronto.</p>
 
 <details class="ajuda-deck">
   <summary>Como usar o deck</summary>
@@ -115,8 +111,12 @@
 </div>
 
 <footer>
-  <img src="shared/logo-cel-horizontal.svg" alt="Ciência e Letras">
-  <span>Ciência e Letras — formação desde 1996</span>
+  <img class="financiamento" src="shared/ulsba-sup.png"
+       alt="Pessoas 2030 · Portugal 2030 · Cofinanciado pela União Europeia · República Portuguesa – Saúde · SNS – Serviço Nacional de Saúde">
+  <div class="assinatura">
+    <img src="shared/logo-cel-horizontal.svg" alt="Ciência e Letras">
+    <span>Ciência e Letras — formação desde 1996</span>
+  </div>
 </footer>
 
 </div>
@@ -267,7 +267,7 @@
     });
 
     if (!visiveis.length) {
-      alvo.appendChild(texto(cria('p', 'vazio'), 'Sem edições a decorrer neste curso.'));
+      alvo.appendChild(texto(cria('p', 'vazio'), 'Sem edições para mostrar.'));
       return;
     }
 
@@ -278,59 +278,82 @@
     alvo.appendChild(leg);
   }
 
-  /* ---------------- próximos blocos ---------------- */
+  /* ---------------- percurso ---------------- */
 
-  function proximos(curso, quantos) {
-    var lista = [];
-    EDICOES.forEach(function (ed) {
-      if (curso !== 'todos' && ed.curso !== curso) return;
-      ed.sessoes.forEach(function (s) {
-        var d = dia(s.data);
-        if (d < HOJE) return;
-        s.blocos.forEach(function (b, i) {
-          lista.push({ ed: ed, s: s, b: b, i: i, d: d, min: inicioBloco(b.h) });
-        });
-      });
-    });
-    lista.sort(function (a, z) { return (a.d - z.d) || (a.min - z.min); });
-    return lista.slice(0, quantos);
+  /* Por omissão, três sessões por edição: a anterior, a atual e a próxima. A "atual" é a de
+     hoje ou, se hoje não há aula, a primeira que ainda está por dar — é para essa que a turma
+     se está a preparar. O percurso completo abre as oito. */
+  var completo = false;
+
+  function janelaPercurso(n, idx) {
+    if (completo) return [0, n];
+    var a = Math.max(0, idx - 1), z = Math.min(n, a + 3);
+    return [Math.max(0, z - 3), z];
   }
 
-  function desenhaEventos(curso) {
-    var alvo = document.getElementById('eventos');
+  function desenhaPercurso(curso) {
+    var alvo = document.getElementById('percurso');
     alvo.innerHTML = '';
+    var visiveis = EDICOES.filter(function (ed) { return curso === 'todos' || ed.curso === curso; });
 
-    var itens = proximos(curso, 8);
-    if (!itens.length) {
-      alvo.appendChild(texto(cria('li', 'vazio'), 'Não há blocos por dar neste curso.'));
-      return;
-    }
+    visiveis.forEach(function (ed) {
+      var bloco = cria('section', 'pc-edicao');
+      var cab = cria('div', 'pc-cab');
+      cab.appendChild(texto(cria('b'), ed.nome));
+      cab.appendChild(texto(cria('span'), ed.sub + ' · ' + ed.horario));
+      bloco.appendChild(cab);
 
-    itens.forEach(function (it, n) {
-      var li = cria('li', n === 0 ? 'seguinte' : '');
+      var datas = ed.sessoes.map(function (s) { return dia(s.data); });
+      var idx = datas.length;
+      for (var k = 0; k < datas.length; k++) { if (datas[k] >= HOJE) { idx = k; break; } }
+      var j = janelaPercurso(datas.length, idx);
 
-      var quando = cria('div', 'ev-quando');
-      quando.appendChild(texto(cria('span', 'ev-data'), curto(it.d)));
-      quando.appendChild(texto(cria('span', 'ev-hora'), it.b.h));
-      var faltam = Math.round((it.d - HOJE) / 86400000);
-      quando.appendChild(texto(cria('span', 'ev-daqui'),
-        faltam === 0 ? 'hoje' : faltam === 1 ? 'amanhã' : 'daqui a ' + faltam + ' dias'));
-      li.appendChild(quando);
+      var grelha = cria('ol', 'pc-grelha' + (completo ? ' completo' : ''));
+      for (var i = j[0]; i < j[1]; i++) {
+        var s = ed.sessoes[i], d = datas[i];
+        var estado = i < idx ? 'dada' : i === idx ? 'atual' : 'por-dar';
+        var li = cria('li', 'pc-sessao ' + estado);
 
-      var corpo = cria('div', 'ev-corpo');
-      corpo.appendChild(texto(cria('span', 'ev-tema'), it.b.tema));
-      var onde = cria('span', 'ev-onde');
-      /* Com um só bloco na sessão, numerá-lo engana: tanto pode ser o 1 como o 2,
-         e a `nota` da sessão é que diz qual. */
-      texto(onde, it.ed.nome + ' · sessão ' + it.s.n +
-                  (it.s.blocos.length > 1 ? ' · bloco ' + (it.i + 1) : '') +
-                  (it.s.nota ? ' · ' + it.s.nota : ''));
-      corpo.appendChild(onde);
+        var rotulo;
+        if (i === idx) {
+          var faltam = Math.round((d - HOJE) / 86400000);
+          rotulo = faltam === 0 ? 'Hoje' : 'Atual · ' + (faltam === 1 ? 'amanhã' : 'daqui a ' + faltam + ' dias');
+        } else if (completo) {
+          rotulo = i < idx ? 'Dada' : 'Por dar';
+        } else {
+          rotulo = i < idx ? 'Anterior' : 'Próxima';
+        }
+        li.appendChild(texto(cria('span', 'pc-rotulo'), rotulo));
+        li.appendChild(texto(cria('span', 'pc-quando'), 'Sessão ' + s.n + ' · ' + curto(d)));
 
-      li.appendChild(corpo);
-      alvo.appendChild(li);
+        var lista = cria('ul', 'pc-blocos');
+        s.blocos.forEach(function (b) {
+          var item = cria('li');
+          item.appendChild(texto(cria('span', 'pc-hora'), b.h));
+          item.appendChild(texto(cria('span', 'pc-tema' + (b.tema === 'Por definir' ? ' tbd' : '')), b.tema));
+          lista.appendChild(item);
+        });
+        li.appendChild(lista);
+        if (s.nota) li.appendChild(texto(cria('span', 'pc-nota'), s.nota));
+        grelha.appendChild(li);
+      }
+      if (idx === datas.length && !completo) {
+        bloco.appendChild(texto(cria('p', 'pc-fim'), 'Edição concluída a ' + ddmm(datas[datas.length - 1]) + '.'));
+      }
+      bloco.appendChild(grelha);
+      alvo.appendChild(bloco);
     });
+
+    if (!visiveis.length) alvo.appendChild(texto(cria('p', 'vazio'), 'Sem edições para mostrar.'));
   }
+
+  var botaoTudo = document.getElementById('percurso-tudo');
+  botaoTudo.addEventListener('click', function () {
+    completo = !completo;
+    botaoTudo.setAttribute('aria-expanded', String(completo));
+    texto(botaoTudo, completo ? 'Ver só anterior, atual e próxima' : 'Ver percurso completo');
+    desenhaPercurso(actual);
+  });
 
   /* ---------------- tabela dos decks ---------------- */
 
@@ -344,7 +367,8 @@
       linha.hidden = !mostra;
       if (mostra) visiveis++;
     });
-    var vazio = !visiveis;
+    var temDecks = tabela.querySelectorAll('thead th').length > 1;
+    var vazio = !visiveis || !temDecks;
     tabela.parentElement.hidden = vazio;
     document.getElementById('sem-decks').hidden = !vazio;
   }
@@ -359,7 +383,7 @@
       b.setAttribute('aria-pressed', String(b.dataset.curso === curso));
     });
     desenhaTimeline(curso);
-    desenhaEventos(curso);
+    desenhaPercurso(curso);
     filtraDecks(curso);
   }
 
