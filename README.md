@@ -37,7 +37,8 @@ A imagem é a que veio com os documentos da operação; não se recorta nem se r
 | `shared/barra-financiamento.js` | Injeta a barra de cofinanciamento nos slides |
 | `shared/` | `cel-base.css` (identidade dos decks), `landing.css`, logótipo CeL, `ulsba-sup.png` |
 | `recursos/` | Materiais de apoio que não dependem de edição |
-| `aula-N-M/` | Deck do bloco M da sessão N, quando existir — ainda nenhum |
+| `aula-1/` | Apresentação de Curso (bloco 1 da sessão 1), adaptado do 1.1 do `cel-genai-med`; serve as duas edições via `?ed=` |
+| `aula-N-M/` | Deck do bloco M da sessão N, para os blocos seguintes |
 | `versions/` | Snapshots congelados por edição |
 
 ## O hub
@@ -47,8 +48,8 @@ Três secções, todas filtráveis pelo seletor de edição no topo:
 - **Linha temporal** — uma faixa por edição, as oito sessões no dia em que acontecem, e a marca de hoje.
 - **Percurso** — por edição, a sessão anterior, a atual e a próxima, com o tema de cada bloco.
   A *atual* é a de hoje ou, sem aula hoje, a primeira por dar. "Ver percurso completo" abre as oito.
-- **Decks de Apresentação** — uma coluna por bloco publicado, uma linha por edição. Sem o 1.1
-  (a apresentação do curso na ULSBA é outra) e, por agora, sem nenhum deck.
+- **Decks de Apresentação** — uma coluna por bloco publicado, uma linha por edição. A primeira é a
+  **Apresentação de Curso**, sem numeração de bloco.
 
 Tudo se calcula em cada visita a partir da data do browser: a página não precisa de ser tocada só
 porque passou uma semana.

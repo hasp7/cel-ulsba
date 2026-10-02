@@ -91,7 +91,7 @@ const EDICOES = [
 ];
 
 const CURSOS = [
-  { id: 'todos', rotulo: 'As duas edições' },
+  { id: 'todos', rotulo: 'Tudo' },
   { id: 'saude', rotulo: 'Gestão e Prática em Saúde' },
   { id: 'med',   rotulo: 'Médicos' }
 ];

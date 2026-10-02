@@ -488,3 +488,4 @@ footer .assinatura { display: flex; align-items: center; justify-content: center
   .pc-grelha { grid-template-columns: 1fr; }
 }
 .tl-zoom button[aria-pressed="true"] { color: var(--sns-verde); border-color: var(--sns-verde); }
+#percurso { margin-top: 16px; }

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apresentação do curso · IA Generativa na ULS Baixo Alentejo</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.css" id="theme">
+<link rel="stylesheet" href="../shared/cel-base.css">
+<style>
+  /* Ajustes locais desta aula. Não mexer no cel-base.css — ver DESIGN.md.
+     O h2 base é 44pt, calibrado para slides diagrama-primeiro com títulos curtos.
+     Este bloco é denso, por isso desce para 26pt. Corpo e listas descem na mesma
+     proporção — o conjunto lê-se melhor com o texto a respirar do que a encher. */
+  .reveal .content-slide h2 { font-size: 26pt; margin-bottom: 8px; }
+  .reveal .content-slide .separator { margin-bottom: 22px; }
+  .reveal .content-slide > ul > li,
+  .reveal .content-slide > p { font-size: 18pt; }
+
+  /* Slides de conteúdo em coluna, para os blocos marcados .fill esticarem até
+     ao fim da área útil mesmo quando têm pouco texto dentro. */
+  .reveal .content-slide { display: flex; flex-direction: column; }
+  .fill { flex: 1 1 auto; min-height: 0; }
+
+  /* Capa: o h1 base (72pt) é para títulos curtos. Aqui lidera o nome do curso,
+     que é comprido, por isso 42pt com largura limitada para partir bem. */
+  .reveal .cover h1 { font-size: 42pt; max-width: 15em; line-height: 1.2; margin-bottom: 18px; }
+  .reveal .cover .subtitle { font-size: 19pt; }
+  .cover .kicker { display: block; font-size: 14pt; text-transform: uppercase;
+                   letter-spacing: 0.1em; font-weight: 600; color: var(--cel-secondary);
+                   margin-bottom: 14px; }
+
+  /* Formadores — dois por linha, cartões altos com espaço para a bio. */
+  .people { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 20px;
+            grid-auto-rows: 1fr; margin-top: 18px; }
+  /* Variante de 3 colunas — até 6 cartões. Letra menor para caber a bio toda. */
+  .people.three { grid-template-columns: repeat(3, 1fr); gap: 14px 15px; }
+  .people.three .card { padding: 16px 18px; }
+  .reveal .people.three h3 { font-size: 14.5pt; margin-bottom: 6px; }
+  .reveal .people.three p { font-size: 11pt; line-height: 1.4; }
+  .people .card { padding: 22px 26px; height: auto; display: flex; flex-direction: column;
+                  justify-content: center; }
+  .reveal .people h3 { font-size: 17pt; margin: 0 0 7px; line-height: 1.2; }
+  .reveal .people p { font-size: 13pt; line-height: 1.45; margin: 0; color: var(--cel-slate); }
+
+  /* Cronograma visual — cada sessão é uma barra de 4 horas.
+     Os blocos desenham-se proporcionais à duração; a falta de um bloco deixa
+     lacuna tracejada, para se ver de relance os dias mais curtos. */
+  .crono { margin-top: 14px; }
+  .crono .row { display: grid; grid-template-columns: 26px 72px 1fr 128px; align-items: center;
+                gap: 14px; padding: 4px 0; }
+  .reveal .crono .n { font-size: 13pt; color: var(--cel-slate); text-align: right; }
+  .reveal .crono .dt { font-size: 15pt; font-weight: 600; color: var(--cel-primary); white-space: nowrap; }
+  .reveal .crono .hr { font-size: 12pt; color: var(--cel-slate); white-space: nowrap; text-align: right; }
+  .crono .track { display: flex; gap: 3px; height: 28px; }
+  .crono .seg { display: flex; align-items: center; justify-content: center;
+                font-family: var(--body-font); font-size: 11pt; color: var(--cel-white); }
+  .crono .seg.b1 { background: var(--cel-primary); }
+  .crono .seg.b2 { background: var(--cel-secondary); }
+  .crono .gap { border: 1px dashed var(--cel-light); }
+  .crono .row.short .dt { color: var(--cel-secondary); }
+  .crono .row.short .hr { color: var(--cel-secondary); font-weight: 600; }
+
+  .crono-key { display: flex; gap: 26px; align-items: center; margin-top: 18px; }
+  .reveal .crono-key span { font-size: 12pt; color: var(--cel-slate); display: flex;
+                            align-items: center; gap: 8px; }
+  .crono-key i { width: 20px; height: 12px; display: inline-block; }
+  .crono-key i.b1 { background: var(--cel-primary); }
+  .crono-key i.b2 { background: var(--cel-secondary); }
+  .crono-key i.gp { border: 1px dashed var(--cel-light); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 20px; }
+  .reveal .two-col h3 { font-size: 19pt; color: var(--cel-primary); margin: 0 0 9px; }
+  .reveal .two-col li { font-size: 15pt; }
+  .reveal .two-col p { font-size: 15pt; }
+
+  /* Barra de proporção 16/4 — mesma linguagem das barras do cronograma. */
+  .split-20 { display: flex; gap: 4px; margin-top: 26px; height: 112px; }
+  .split-20 .seg { display: flex; flex-direction: column; align-items: flex-start;
+                   justify-content: center; padding: 0 28px; }
+  .split-20 .seg.sub { flex: 16; background: var(--cel-primary); }
+  .split-20 .seg.apr { flex: 4;  background: var(--cel-secondary); }
+  .reveal .split-20 .v { font-family: var(--heading-font); font-weight: 700; font-size: 42pt;
+                         color: var(--cel-white); line-height: 1; }
+  .reveal .split-20 .k { font-size: 14pt; color: rgba(255,255,255,.82); margin-top: 6px; }
+
+  /* Dimensões de avaliação — cartões que esticam para preencher o slide. */
+  .dims { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 18px;
+          grid-auto-rows: 1fr; margin-top: 18px; }
+  .dims .card { padding: 16px 20px; height: auto; display: flex; flex-direction: column;
+                justify-content: center; }
+  .reveal .dims h3 { font-size: 16pt; margin: 0 0 5px; line-height: 1.25; }
+  .reveal .dims p { font-size: 12pt; line-height: 1.4; margin: 0; color: var(--cel-slate); }
+
+  /* Modulação por formato. */
+  .modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 26px;
+           align-content: center; }
+  .mode { border-top: 3px solid var(--cel-secondary); padding-top: 18px; }
+  .mode.off { border-top-color: var(--cel-light); }
+  .reveal .mode .pts { font-family: var(--heading-font); font-weight: 700; font-size: 58pt;
+                       color: var(--cel-primary); line-height: 1; display: block; }
+  .mode.off .pts { color: var(--cel-light); }
+  .reveal .mode h3 { font-size: 18pt; margin: 10px 0 5px; }
+  .reveal .mode p { font-size: 14pt; color: var(--cel-slate); margin: 0; }
+
+  /* Linha do tempo do projeto. A pré-submissão é uma janela (barra que
+     atravessa duas aulas); a entrega é um momento (marca numa só). */
+  .tl { display: flex; flex-direction: column; justify-content: center; gap: 0; }
+  .tl-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tl-head div { text-align: center; }
+  .reveal .tl-head .a { display: block; font-family: var(--heading-font); font-weight: 600;
+                        font-size: 19pt; color: var(--cel-primary); }
+  .reveal .tl-head .d { display: block; font-size: 13pt; color: var(--cel-slate); margin-top: 2px; }
+  .tl-axis { position: relative; height: 40px; margin: 14px 0 0; }
+  .tl-axis::before { content: ""; position: absolute; top: 19px; left: 16%; right: 16%;
+                     height: 1px; background: var(--cel-light); }
+  .tl-axis .dot { position: absolute; top: 12px; width: 15px; height: 15px; border-radius: 50%;
+                  background: var(--cel-bg); border: 2px solid var(--cel-secondary);
+                  transform: translateX(-50%); }
+  .tl-axis .dot.solid { background: var(--cel-primary); border-color: var(--cel-primary); }
+  .tl-axis .dot:nth-child(1) { left: 16.6%; }
+  .tl-axis .dot:nth-child(2) { left: 50%; }
+  .tl-axis .dot:nth-child(3) { left: 83.3%; }
+  .tl-band { margin-top: 6px; }
+  .tl-band .win { grid-column: 1 / span 2; background: var(--cel-secondary); color: var(--cel-white);
+                  padding: 13px 20px; font-size: 15pt; display: flex; align-items: center;
+                  justify-content: center; text-align: center; }
+  .tl-band .pt { grid-column: 3; background: var(--cel-primary); color: var(--cel-white);
+                 padding: 13px 20px; font-size: 15pt; display: flex; align-items: center;
+                 justify-content: center; text-align: center; }
+  .tl-foot { margin-top: 16px; }
+  .reveal .tl-foot p { font-size: 13pt; color: var(--cel-slate); text-align: center; margin: 0; }
+
+  /* Foto a preencher a coluna, recortada pelo centro. */
+  .ph { margin: 0; overflow: hidden; min-height: 0; }
+  .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Placeholder de imagem por produzir.
+     Convenção: título sugerido | dimensões | prompt em inglês para o modelo de imagem.
+     Substituir por <img> quando a imagem existir. */
+  .imgph { border: 1px dashed var(--cel-light); background: rgba(184,181,157,.10);
+           display: flex; flex-direction: column; justify-content: center; gap: 8px;
+           padding: 22px 26px; min-height: 150px; }
+  .reveal .imgph .t { font-family: var(--heading-font); font-weight: 600; font-size: 14pt;
+                      color: var(--cel-primary); }
+  .reveal .imgph .d { font-family: "JetBrains Mono", monospace; font-size: 11pt;
+                      color: var(--cel-secondary); }
+  .reveal .imgph .p { font-size: 10pt; line-height: 1.45; color: var(--cel-slate);
+                      font-style: italic; }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- ============ CAPA (por edição) ============ -->
+<section class="cover" data-ed="saude1">
+  <div class="accent-line"></div>
+  <span class="kicker">Sessão 1 · Apresentação do curso</span>
+  <h1>ChatGPT, ChatBots na Gestão e Prática Profissional em Saúde</h1>
+  <p class="subtitle">ULS Baixo Alentejo · 1ª edição · 6 de outubro de 2026</p>
+  <img class="cover-logo" src="../shared/logo-cel-horizontal.svg" alt="Ciência e Letras">
+  <aside class="notes">Bloco 1 (14h00–16h00): apresentação e caracterização da turma. Fechar com a apresentação dos formandos, que é a parte que demora. A introdução à IA é o bloco 2.</aside>
+</section>
+
+<section class="cover" data-ed="med1">
+  <div class="accent-line"></div>
+  <span class="kicker">Sessão 1 · Apresentação do curso</span>
+  <h1>ChatGPT, ChatBots para Médicos</h1>
+  <p class="subtitle">ULS Baixo Alentejo · 1ª edição · 12 de outubro de 2026</p>
+  <img class="cover-logo" src="../shared/logo-cel-horizontal.svg" alt="Ciência e Letras">
+  <aside class="notes">Bloco 1 (14h00–16h00): apresentação e caracterização da turma. Fechar com a apresentação dos formandos, que é a parte que demora. A introdução à IA é o bloco 2.</aside>
+</section>
+
+<!-- ============ TÓPICOS ============ -->
+<section class="content-slide">
+  <h2>Tópicos</h2>
+  <div class="separator"></div>
+  <ul>
+    <li>Quem somos — os formadores</li>
+    <li>Objetivos do curso</li>
+    <li>Como funciona: sessões, materiais e Moodle</li>
+    <li>Avaliação e projeto final</li>
+    <li>Cronograma</li>
+    <li>Recursos necessários</li>
+    <li>Apresentação dos formandos</li>
+  </ul>
+</section>
+
+<section class="section-divider">
+  <div class="label">Parte um</div>
+  <h2>A equipa e o curso</h2>
+</section>
+
+<!-- ============ FORMADORES (por edição) ============
+     Todos ao mesmo nível, por ordem alfabética: sem separar coordenação de
+     equipa formativa e sem variantes de card. -->
+<section class="content-slide">
+  <h2>Formadores</h2>
+  <div class="separator"></div>
+  <div class="people fill">
+    <div class="card"><h3>Mariana Canelas Pais</h3><p>Médica e Mestre em Informática Médica pela FMUP. Data Scientist Director na MTG Research and Development Lab e docente convidada na FMUP, onde lecciona os cursos DECIDES.</p></div>
+    <div class="card"><h3>Ricardo Cruz-Correia</h3><p>Professor associado e especialista em informática em saúde. Trabalha a integração de tecnologia na saúde e na educação, com mais de vinte seminários sobre aplicação de IA generativa.</p></div>
+    <div class="card"><h3>Hélder Palheira</h3><p>Enfermeiro e Mestre em Informática Médica pela FMUP-FCUP. Desenvolve soluções digitais com IA para a saúde e integra o Grupo de Trabalho de Saúde Digital e IA da Ordem dos Enfermeiros.</p></div>
+    <div class="card"><h3>Sara Matias Correia</h3><p>Licenciada em Relações Internacionais, especializada em tecnologias digitais e análise estratégica. Acompanha o curso na comunicação e no contributo geral.</p></div>
+  </div>
+</section>
+
+<section class="content-slide" data-ed="saude1">
+  <h2>Formadores</h2>
+  <div class="separator"></div>
+  <div class="people three fill">
+    <div class="card"><h3>Daniel Rodrigues</h3><p>Especialista em Informática em Saúde e formador em IA para a Saúde desde 2023. Investiga a aplicação de modelos de linguagem no ensino superior.</p></div>
+    <div class="card"><h3>Jannine Nascimento</h3><p>Enfermeira, doutoranda em Ciências da Saúde pela UFMG e pesquisadora visitante na Universidade do Porto. Investiga saúde digital e produção científica baseada em evidências.</p></div>
+    <div class="card"><h3>Miguel Oliveira</h3><p>Psicólogo especialista em Psicologia da Educação e em Psicologia do Trabalho. Coordena a Equipa de Cibersegurança da Ordem dos Psicólogos e é doutorando em Health Data Science na FMUP.</p></div>
+  </div>
+  <aside class="notes">Escala segundo o cronograma da CeL (docx de 2026-10-01). Confirmar antes de cada edição — o slide segue o trainers.yaml: aparece quem dá pelo menos um bloco.</aside>
+</section>
+
+<section class="content-slide" data-ed="med1">
+  <h2>Formadores</h2>
+  <div class="separator"></div>
+  <div class="people three fill">
+    <div class="card"><h3>Daniel Rodrigues</h3><p>Especialista em Informática em Saúde e formador em IA para a Saúde desde 2023. Investiga a aplicação de modelos de linguagem no ensino superior.</p></div>
+    <div class="card"><h3>Jannine Nascimento</h3><p>Enfermeira, doutoranda em Ciências da Saúde pela UFMG e pesquisadora visitante na Universidade do Porto. Investiga saúde digital e produção científica baseada em evidências.</p></div>
+    <div class="card"><h3>Miguel Oliveira</h3><p>Psicólogo especialista em Psicologia da Educação e em Psicologia do Trabalho. Coordena a Equipa de Cibersegurança da Ordem dos Psicólogos e é doutorando em Health Data Science na FMUP.</p></div>
+  </div>
+  <aside class="notes">Escala segundo o cronograma da CeL (docx de 2026-10-01). Confirmar antes de cada edição — o slide segue o trainers.yaml: aparece quem dá pelo menos um bloco.</aside>
+</section>
+
+<!-- ============ OBJETIVOS ============ -->
+<section class="content-slide">
+  <h2>Objetivos do curso</h2>
+  <div class="separator"></div>
+  <div class="two-col fill" style="grid-template-columns: 1.25fr 1fr; align-items: stretch;">
+    <div>
+      <p style="font-size:15pt; margin-bottom:12px;">Usar ferramentas de IA generativa — ChatGPT, Claude.ai, Gemini, NotebookLM — de forma <strong>crítica, eficaz e segura</strong> na prática profissional em saúde — na clínica, na gestão e no trabalho administrativo.</p>
+      <ul style="font-size:13pt; line-height:1.5;">
+        <li><em>Prompt Engineering</em>: princípios e padrões</li>
+        <li><em>Context Engineering &amp; AI task design</em> — workflow</li>
+        <li>Agentic thinking: como usar a IA para resolver problemas complexos</li>
+        <li>Pesquisa, análise de documentos, geração de imagem, <em>plugins, skills</em></li>
+        <li><em>Grounding, Constraints and Control</em></li>
+        <li>Curadoria e validação de resultados</li>
+        <li>Riscos éticos, de segurança e o impacto da IA na saúde</li>
+      </ul>
+    </div>
+    <figure class="ph"><img src="assets/medica-ia-consulta.jpg" alt="Médica a rever informação no portátil, no consultório"></figure>
+  </div>
+  <aside class="notes">Fechar com o projeto final: cada um aplica isto a um problema real da sua prática.</aside>
+</section>
+
+<!-- ============ FUNCIONAMENTO ============ -->
+<section class="content-slide">
+  <h2>Como funciona</h2>
+  <div class="separator"></div>
+  <div class="two-col">
+    <div>
+      <h3>Sessões</h3>
+      <ul>
+        <li>Formação à distância síncrona, por Zoom</li>
+        <li>Sessões teórico-práticas</li>
+        <li>Aulas gravadas, disponíveis durante algumas semanas</li>
+      </ul>
+    </div>
+    <div>
+      <h3>No Moodle</h3>
+      <ul>
+        <li>Materiais de cada sessão</li>
+        <li><em>Quizzes</em> formativos</li>
+        <li>Atividades para aprofundar depois da aula</li>
+        <li>Tutoriais e exercícios com as ferramentas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section-divider">
+  <div class="label">Parte dois</div>
+  <h2>Como são avaliados</h2>
+</section>
+
+<!-- ============ AVALIAÇÃO — 1. o mapa ============ -->
+<section class="content-slide">
+  <h2>Avaliação</h2>
+  <div class="separator"></div>
+  <div class="people" style="grid-template-columns: repeat(3, 1fr); margin-top: 26px;">
+    <div class="card"><h3>Quizzes</h3><p>Um por sessão, no Moodle. Formativos — servem para consolidar, não para reprovar.</p></div>
+    <div class="card"><h3>Assiduidade</h3><p>Presença nas sessões síncronas, com as regras de diferido na página seguinte.</p></div>
+    <div class="card"><h3>Projeto final</h3><p>A peça avaliada com grelha publicada. Um problema real da vossa prática.</p></div>
+  </div>
+  <aside class="notes">
+    Não avançar pesos globais: a integração das três componentes numa nota única ainda não está
+    fechada (está diferida para a v2 da pipeline). O que está decidido é a grelha do projeto.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 2. o peso das duas componentes ============ -->
+<section class="content-slide">
+  <h2>O projeto final</h2>
+  <div class="separator"></div>
+  <p>Classificado de <strong>0 a 20</strong>, em duas componentes:</p>
+  <div class="split-20">
+    <div class="seg sub"><span class="v">16</span><span class="k">Submissão</span></div>
+    <div class="seg apr"><span class="v">4</span><span class="k">Apresentação</span></div>
+  </div>
+  <p class="muted" style="font-size:16pt; margin-top:26px;">
+    Cada dimensão é classificada em quatro níveis — Limitado, Suficiente, Bom, Distinto.
+  </p>
+  <aside class="notes">
+    A barra dá a proporção de relance: o trabalho escrito é o grosso da nota.
+
+    A grelha completa, com os descritivos de cada nível, é dada na aula 7 ("As Regras do Jogo").
+
+    NÃO declarar a escala de classificação no slide. Se perguntarem, é: abaixo de 10 Não atingiu,
+    10-13 Atingiu, 14-15 Bom, 16-17 Muito Bom, 18-20 Excelente.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 2b. dimensões de avaliação ============ -->
+<section class="content-slide">
+  <h2>Dimensões de avaliação</h2>
+  <div class="separator"></div>
+  <div class="dims fill">
+    <div class="card"><h3>Metodologia e Engenharia de Prompt</h3><p>Como estruturaram as instruções e que caminho seguiram até ao resultado.</p></div>
+    <div class="card"><h3>Curadoria e Validação</h3><p>O que fizeram para confirmar que o output resiste — e onde o corrigiram.</p></div>
+    <div class="card"><h3>Ecossistema de Ferramentas</h3><p>Que ferramentas escolheram, e porquê essas para este problema.</p></div>
+    <div class="card"><h3>Documentação do Processo</h3><p>Se o raciocínio está registado de forma a que outra pessoa o siga.</p></div>
+    <div class="card"><h3>Replicabilidade</h3><p>Se o que fizeram se transfere para outro contexto ou outro colega.</p></div>
+  </div>
+</section>
+
+<!-- ============ AVALIAÇÃO — 2c. modulação por formato ============ -->
+<section class="content-slide">
+  <h2>Como apresentam conta</h2>
+  <div class="separator"></div>
+  <div class="modes">
+    <div class="mode"><span class="pts">4</span><h3>Ao vivo</h3><p>Acede à cotação toda</p></div>
+    <div class="mode"><span class="pts">3</span><h3>Vídeo gravado</h3><p>Tecto nos 3 pontos</p></div>
+    <div class="mode off"><span class="pts">0</span><h3>Só submissão</h3><p>Sem pontos de apresentação</p></div>
+  </div>
+  <aside class="notes">
+    Este é o slide que muda comportamento, e por isso é dito hoje e não na aula 7 — dito em
+    novembro já ninguém reorganiza a agenda para estar presente na última sessão.
+
+    Quem não puder estar ao vivo articula com o formador a partir da pré-submissão.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 3. a pré-submissão ============ -->
+<section class="content-slide">
+  <h2>A pré-submissão</h2>
+  <div class="separator"></div>
+  <div class="two-col">
+    <div>
+      <h3>O que é</h3>
+      <ul style="font-size:16pt">
+        <li>Um <strong>quiz no Moodle</strong>, obrigatório</li>
+        <li>Abre na <strong>aula 6</strong>, fecha no fim da <strong>aula 7</strong></li>
+        <li>Privado — cada um vê só as suas respostas; os formadores veem todas</li>
+        <li>Não tem nota: serve para organizar a apresentação</li>
+      </ul>
+    </div>
+    <div>
+      <h3>O que vos é perguntado</h3>
+      <ol style="font-size:15pt">
+        <li>Título do projeto</li>
+        <li>Descrição breve, uma ou duas frases</li>
+        <li>Que problema ou oportunidade aborda</li>
+        <li>Em que ponto está</li>
+        <li>Como tencionam apresentar — ao vivo, vídeo, ou só submeter</li>
+        <li>Dúvidas para discutir na aula 7 <span class="muted">(opcional)</span></li>
+      </ol>
+    </div>
+  </div>
+  <p class="muted" style="font-size:15pt; margin-top:14px;">
+    As quatro primeiras respostas são já o rascunho do relatório — dá para copiar e expandir.
+  </p>
+  <aside class="notes">
+    A pergunta 5 é a que interessa para a logística: define quem apresenta ao vivo, quem manda
+    vídeo e quem só submete, e é a partir daí que se articula o caso a caso.
+
+    Há mecanismo de resgate para quem falhe o prazo, a critério do formador — não anunciar,
+    mas existe.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 4. o que se entrega ============ -->
+<section class="content-slide">
+  <h2>O que se entrega</h2>
+  <div class="separator"></div>
+  <div class="two-col" style="grid-template-columns: 1.15fr 1fr;">
+    <div>
+      <h3>Relatório <span class="muted" style="font-size:15pt">— sempre</span></h3>
+      <p style="font-size:15pt; margin:0 0 8px;">Template em Word, seis secções, com texto orientador em cada uma:</p>
+      <ol style="font-size:14pt">
+        <li>Definição do problema e oportunidade</li>
+        <li>Estratégia e workflow</li>
+        <li>Engenharia de prompt e processo</li>
+        <li>Resultados e artefactos</li>
+        <li>Validação e análise crítica</li>
+        <li>Aplicabilidade e personalização</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Apresentação</h3>
+      <p style="font-size:15pt;">Para quem apresenta ao vivo ou entrega vídeo. Estrutura orientada, estética livre — cerca de 3 minutos de enquadramento e 4 de resultados.</p>
+      <h3 style="margin-top:20px;">Anexos <span class="muted" style="font-size:15pt">— opcional</span></h3>
+      <p style="font-size:15pt;">O que ajudar a mostrar o trabalho, com a convenção de nomes que vem no template.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Cada secção do relatório corresponde a evidência para uma ou mais dimensões da grelha — o
+    template é o espelho das rubricas, não um formulário burocrático. Vale a pena dizer isso.
+
+    O template fica no Moodle. Se der, abrir o ficheiro em vez de só falar dele.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 5. o percurso do projeto ============ -->
+<section class="content-slide" data-ed="saude1">
+  <h2>O projeto, sessão a sessão</h2>
+  <div class="separator"></div>
+  <div class="tl fill">
+    <div class="tl-row tl-head">
+      <div><span class="a">Aula 6</span><span class="d">10 nov</span></div>
+      <div><span class="a">Aula 7</span><span class="d">17 nov</span></div>
+      <div><span class="a">Aula 8</span><span class="d">24 nov</span></div>
+    </div>
+    <div class="tl-axis">
+      <span class="dot"></span><span class="dot"></span><span class="dot solid"></span>
+    </div>
+    <div class="tl-row tl-band">
+      <div class="win">Pré-submissão aberta no Moodle</div>
+      <div class="pt">Submissão final e apresentação</div>
+    </div>
+    <div class="tl-row tl-foot">
+      <p></p>
+      <p>Ideação em sala · fecha no fim da sessão</p>
+      <p>No próprio dia</p>
+    </div>
+  </div>
+  <aside class="notes">
+    A barra atravessa duas aulas de propósito: a pré-submissão é uma janela, não um prazo
+    pontual. Quem quiser fazê-la logo na aula 6 pode.
+  </aside>
+</section>
+
+<section class="content-slide" data-ed="med1">
+  <h2>O projeto, sessão a sessão</h2>
+  <div class="separator"></div>
+  <div class="tl fill">
+    <div class="tl-row tl-head">
+      <div><span class="a">Aula 6</span><span class="d">16 nov</span></div>
+      <div><span class="a">Aula 7</span><span class="d">23 nov</span></div>
+      <div><span class="a">Aula 8</span><span class="d">30 nov</span></div>
+    </div>
+    <div class="tl-axis">
+      <span class="dot"></span><span class="dot"></span><span class="dot solid"></span>
+    </div>
+    <div class="tl-row tl-band">
+      <div class="win">Pré-submissão aberta no Moodle</div>
+      <div class="pt">Submissão final e apresentação</div>
+    </div>
+    <div class="tl-row tl-foot">
+      <p></p>
+      <p>Ideação em sala · fecha no fim da sessão</p>
+      <p>No próprio dia</p>
+    </div>
+  </div>
+  <aside class="notes">
+    A barra atravessa duas aulas de propósito: a pré-submissão é uma janela, não um prazo
+    pontual. Quem quiser fazê-la logo na aula 6 pode.
+  </aside>
+</section>
+
+<!-- ============ AVALIAÇÃO — 6. prazos e regras ============ -->
+<section class="content-slide">
+  <h2>Prazos e regras</h2>
+  <div class="separator"></div>
+  <ul style="font-size:19pt; line-height:1.9;">
+    <li>Todas as tarefas completas <strong>até ao último dia de aulas</strong></li>
+    <li>Assiduidade diferida, com tolerância de <strong>3 dias após final do curso</strong></li>
+    <li>Ver em diferido conta em <strong>assiduidade</strong></li>
+    <li>Entregas fora de prazo têm penalização</li>
+  </ul>
+  <aside class="notes">
+  </aside>
+</section>
+
+<section class="section-divider">
+  <div class="label">Parte três</div>
+  <h2>Datas e recursos</h2>
+</section>
+
+<!-- ============ CRONOGRAMA (por edição) ============ -->
+<section class="content-slide" data-ed="saude1">
+  <h2>Cronograma — 1ª edição</h2>
+  <div class="separator"></div>
+  <p class="muted">Terças-feiras, 14h00 às 18h00 · 30 horas · 6 de outubro a 24 de novembro de 2026</p>
+  <div class="crono">
+    <div class="row"><span class="n">1</span><span class="dt">6 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">2</span><span class="dt">13 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row short"><span class="n">3</span><span class="dt">20 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:1">1h</div><div class="gap" style="flex:1"></div></div>
+      <span class="hr">14h00–17h00</span></div>
+    <div class="row short"><span class="n">4</span><span class="dt">27 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:1">1h</div><div class="gap" style="flex:1"></div></div>
+      <span class="hr">14h00–17h00</span></div>
+    <div class="row"><span class="n">5</span><span class="dt">3 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">6</span><span class="dt">10 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">7</span><span class="dt">17 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">8</span><span class="dt">24 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+  </div>
+  <div class="crono-key">
+    <span><i class="b1"></i>1º bloco</span>
+    <span><i class="b2"></i>2º bloco</span>
+    <span><i class="gp"></i>sem sessão</span>
+  </div>
+  <aside class="notes">As sessões 3 e 4 são de 3h: o 2º bloco tem só 1h e acaba às 17h00.</aside>
+</section>
+
+<section class="content-slide" data-ed="med1">
+  <h2>Cronograma — 1ª edição</h2>
+  <div class="separator"></div>
+  <p class="muted">Segundas-feiras, 14h00 às 18h00 · 30 horas · 12 de outubro a 30 de novembro de 2026</p>
+  <div class="crono">
+    <div class="row"><span class="n">1</span><span class="dt">12 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">2</span><span class="dt">19 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row short"><span class="n">3</span><span class="dt">26 out</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:1">1h</div><div class="gap" style="flex:1"></div></div>
+      <span class="hr">14h00–17h00</span></div>
+    <div class="row short"><span class="n">4</span><span class="dt">2 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:1">1h</div><div class="gap" style="flex:1"></div></div>
+      <span class="hr">14h00–17h00</span></div>
+    <div class="row"><span class="n">5</span><span class="dt">9 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">6</span><span class="dt">16 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">7</span><span class="dt">23 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+    <div class="row"><span class="n">8</span><span class="dt">30 nov</span>
+      <div class="track"><div class="seg b1" style="flex:2">2h</div><div class="seg b2" style="flex:2">2h</div></div>
+      <span class="hr">14h00–18h00</span></div>
+  </div>
+  <div class="crono-key">
+    <span><i class="b1"></i>1º bloco</span>
+    <span><i class="b2"></i>2º bloco</span>
+    <span><i class="gp"></i>sem sessão</span>
+  </div>
+  <aside class="notes">As sessões 3 e 4 são de 3h: o 2º bloco tem só 1h e acaba às 17h00.</aside>
+</section>
+
+<!-- ============ RECURSOS ============ -->
+<section class="content-slide">
+  <h2>Recursos necessários</h2>
+  <div class="separator"></div>
+  <p>Cada formando precisa do <strong>seu computador com acesso à Internet</strong>.</p>
+  <p class="muted">As ferramentas exploradas no curso funcionam no browser — não é preciso instalar nada.</p>
+</section>
+
+<!-- ============ APRESENTAÇÃO DOS FORMANDOS ============ -->
+<section class="content-slide">
+  <h2>E vocês, quem são?</h2>
+  <div class="separator"></div>
+  <div class="two-col fill" style="grid-template-columns: 1fr 1.1fr; align-items: stretch;">
+    <div>
+      <ul style="font-size:17pt; line-height:1.9;">
+        <li>Nome e onde trabalham</li>
+        <li>Experiência anterior com IA generativa, se alguma</li>
+        <li>O que esperam levar deste curso</li>
+      </ul>
+      <p class="muted" style="font-size:14pt;">Fica também um formulário no Moodle, para preencher até à próxima sessão.</p>
+    </div>
+    <figure class="ph"><img src="assets/turma-formacao-distancia.jpg" alt="Grelha de janelas de videochamada com profissionais de saúde numa sessão online"></figure>
+  </div>
+  <aside class="notes">É aqui que se percebe o nível da turma. Deixar correr — vale mais do que qualquer slide.</aside>
+</section>
+
+<!-- ============ FECHO ============ -->
+<section class="closing">
+  <div class="accent-line"></div>
+  <h2>Vamos a isto</h2>
+  <p>Próximo bloco: Introdução à IA</p>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+<script>
+  // Este deck serve as duas edições ULSBA:
+  //   ?ed=saude1  Gestão e Prática Profissional em Saúde (terças)
+  //   ?ed=med1    Médicos (segundas)
+  // Os slides marcados com data-ed que não sejam da edição pedida são removidos antes de
+  // inicializar o reveal, para a numeração dos slides ficar certa.
+  (function () {
+    var EDICOES = ['saude1', 'med1'];
+    var ed = new URLSearchParams(location.search).get('ed');
+    if (EDICOES.indexOf(ed) === -1) ed = EDICOES[0];
+    document.querySelectorAll('[data-ed]').forEach(function (el) {
+      if (el.dataset.ed !== ed) el.remove();
+    });
+  })();
+</script>
+<script src="../shared/barra-financiamento.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'fade',
+    plugins: [ RevealNotes ]
+  });
+</script>
+</body>
+</html>
