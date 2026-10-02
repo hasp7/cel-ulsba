@@ -7,6 +7,9 @@
  *
  * Os slides têm 60px de margem em baixo; a barra ocupa os ~36px de baixo. Elementos posicionados
  * no fundo do slide (referências, notas de rodapé) devem ficar a 44px ou mais.
+ *
+ * Num slide cujo conteúdo desce até ao fundo, `data-barra="direita"` na <section> encosta a barra
+ * à direita em vez de a centrar (ex.: Objetivos do curso, com a lista ao lado da fotografia).
  */
 (function () {
   'use strict';
@@ -14,7 +17,8 @@
   css.textContent =
     '.reveal .barra-fin{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);' +
     'height:26px;width:auto;max-width:none;margin:0;padding:3px 10px;background:#fff;' +
-    'border-radius:2px;box-shadow:none;border:0}';
+    'border-radius:2px;box-shadow:none;border:0}' +
+    '.reveal section[data-barra="direita"] .barra-fin{left:auto;right:10px;transform:none}';
   document.head.appendChild(css);
 
   var src = (document.currentScript && document.currentScript.src || '').replace(/[^/]*$/, '') + 'ulsba-sup.png';
