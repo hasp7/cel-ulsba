@@ -11,4 +11,9 @@ as versões dos decks de medicina e enfermagem estão descritas no `VERSIONS.md`
 
 ---
 
-Ainda sem decks publicados.
+## Apresentação de Curso (`aula-1/`)
+
+### v1.0.0 — adaptado às edições ULSBA (2026-10-02)
+- Parte do deck 1.1 do `cel-genai-med` (v0.8.0). Capas `saude1` e `med1`, formadores DR, JN e MO
+  segundo os cronogramas da CeL, objetivos abertos à gestão, projeto e cronograma com as datas de
+  cada edição (S3 e S4 de 3h). Barra de cofinanciamento em todos os slides.

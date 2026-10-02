@@ -20,11 +20,6 @@
 
 <span class="label-tag">Onde vão as turmas</span>
 <h2>Linha temporal</h2>
-<p class="section-note">
-  Uma faixa por edição, com as oito sessões no dia em que acontecem. O ponto cheio é sessão
-  dada, o vazio é sessão por dar, e a marca vertical é hoje. Passa o rato sobre um ponto para
-  ver o tema. O período aperta a escala às próximas semanas.
-</p>
 
 <div class="tl-zoom" id="zoom" role="group" aria-label="Período da linha temporal"></div>
 
@@ -34,11 +29,6 @@
 
 <span class="label-tag">Onde estamos</span>
 <h2>Percurso</h2>
-<p class="section-note">
-  Para cada edição, a sessão anterior, a atual e a próxima, com o tema de cada bloco.
-  O percurso completo mostra as oito sessões. Quem dá cada bloco, a sala e o Moodle não estão
-  aqui — chegam aos formadores pelo convite de calendário e aos formandos pelo Moodle.
-</p>
 
 <div id="percurso"></div>
 <button type="button" class="percurso-toggle" id="percurso-tudo" aria-expanded="false">Ver percurso completo</button>
@@ -56,14 +46,17 @@
   <thead>
     <tr>
       <th scope="col">Edição</th>
+      <th scope="col">Apresentação de Curso</th>
     </tr>
   </thead>
   <tbody>
     <tr data-curso="saude">
       <th scope="row" class="current">Gestão e Prática Profissional em Saúde · 1ª edição<br><span class="pill">terças · 14h00–18h00</span></th>
+      <td><a href="aula-1/?ed=saude1">06/10</a></td>
     </tr>
     <tr data-curso="med">
       <th scope="row" class="current">Médicos · 1ª edição<br><span class="pill">segundas · 14h00–18h00</span></th>
+      <td><a href="aula-1/?ed=med1">12/10</a></td>
     </tr>
   </tbody>
 </table>
@@ -257,7 +250,8 @@
       }
 
       if (dentro) {
-        var agora = cria('div', 'tl-hoje' + (idx === 0 ? ' rotulo' : ''));
+        /* A etiqueta vai por baixo da última faixa: em cima colidia com a régua dos meses. */
+        var agora = cria('div', 'tl-hoje' + (idx === visiveis.length - 1 ? ' rotulo' : ''));
         agora.style.setProperty('--x', pct(HOJE));
         pista.appendChild(agora);
       }
@@ -321,7 +315,7 @@
         } else if (completo) {
           rotulo = i < idx ? 'Dada' : 'Por dar';
         } else {
-          rotulo = i < idx ? 'Anterior' : 'Próxima';
+          rotulo = i < idx ? 'Anterior' : i === idx + 1 ? 'Próxima' : 'Depois';
         }
         li.appendChild(texto(cria('span', 'pc-rotulo'), rotulo));
         li.appendChild(texto(cria('span', 'pc-quando'), 'Sessão ' + s.n + ' · ' + curto(d)));
