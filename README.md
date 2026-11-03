@@ -38,7 +38,7 @@ A imagem é a que veio com os documentos da operação; não se recorta nem se r
 | `shared/` | `cel-base.css` (identidade dos decks), `landing.css`, logótipo CeL, `ulsba-sup.png` |
 | `recursos/` | Materiais de apoio que não dependem de edição |
 | `aula-1/` | Apresentação de Curso (bloco 1 da sessão 1), adaptado do 1.1 do `cel-genai-med`; serve as duas edições via `?ed=` |
-| `aula-N-M/` | Deck do bloco M da sessão N, para os blocos seguintes |
+| `recursos/timeline-chatbots/` | A evolução dos chatbots, trimestre a trimestre. **Os dados (`ITEMS`) são iguais aos do `hasp7/cel-genai-med`**: atualizar os dois juntos (última atualização: até 2026-Q4, a 2026-11-03) |
 | `versions/` | Snapshots congelados por edição |
 
 ## O hub
@@ -63,9 +63,13 @@ porque passou uma semana.
 
 ## Como trabalhar
 
-**Publicar um deck:** criar `aula-N-M/`, incluir o `barra-financiamento.js`, e acrescentar a
-coluna e as células à tabela `#decks` do `index.html`. Acrescentar a coluna é o gesto que publica.
-A etiqueta da ligação é só a data em que *aquela* edição dá o bloco (`06/10`, `12/10`).
+**Aulas não são públicas** (decisão do Hélder, 2026-11-03). Aqui fica só a Apresentação de Curso
+(`aula-1/`); os decks dos blocos seguintes não se publicam e seguem em PDF no Moodle de cada
+edição. Se um dia se publicar um bloco: criar `aula-N-M/`, incluir o `barra-financiamento.js` e
+acrescentar a coluna à tabela `#decks` do `index.html`, com a data em que cada edição dá o bloco.
+
+**Temas do Percurso:** vêm dos YAML das edições, alinhados com a agenda (convites aos formadores e
+eventos do Hélder). Quando a agenda e o YAML divergem, acerta-se primeiro o YAML.
 
 **Código da edição no `?ed=`:** `saude1` e `med1`. Código desconhecido cai na primeira.
 
