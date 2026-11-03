@@ -35,17 +35,17 @@ const EDICOES = [
         { h: '14h00–16h00', tema: 'Personalização e Design prompting' },
         { h: '16h00–18h00', tema: 'Prompt Engineering I/II' } ] },
       { n: 3, data: '2026-10-20', nota: 'Sessão de 3H, bloco 2 de 1H', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–17h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'Deep Research e Routing; Escrita Científica e Detetores de IA' },
+        { h: '16h00–17h00', tema: 'NotebookLM: Grounding e Guardrails' } ] },
       { n: 4, data: '2026-10-27', nota: 'Sessão de 3H, bloco 2 de 1H', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–17h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'SOPs (Grounding e Guardrails)' },
+        { h: '16h00–17h00', tema: 'AI Slop' } ] },
       { n: 5, data: '2026-11-03', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
+        { h: '14h00–16h00', tema: 'Ética e Segurança' },
         { h: '16h00–18h00', tema: 'Impacto, Prática Clínica e o Papel do Profissional' } ] },
       { n: 6, data: '2026-11-10', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–18h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'Análise de Dados em Python e Google Colab com recurso a IA' },
+        { h: '16h00–18h00', tema: 'Análise de Dados em Python e Google Colab com recurso a IA' } ] },
       { n: 7, data: '2026-11-17', blocos: [
         { h: '14h00–16h00', tema: 'Laboratório de Projeto' },
         { h: '16h00–18h00', tema: 'Laboratório de Projeto' } ] },
@@ -69,17 +69,17 @@ const EDICOES = [
         { h: '14h00–16h00', tema: 'Personalização e Design prompting' },
         { h: '16h00–18h00', tema: 'Prompt Engineering I/II' } ] },
       { n: 3, data: '2026-10-26', nota: 'Sessão de 3H, bloco 2 de 1H', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–17h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'Identidade Visual com IA Generativa e Skills' },
+        { h: '16h00–17h00', tema: 'Do Protocolo Clínico ao Material de Formação' } ] },
       { n: 4, data: '2026-11-02', nota: 'Sessão de 3H, bloco 2 de 1H', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–17h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'Gemini, NotebookLM e Escrita Científica' },
+        { h: '16h00–17h00', tema: 'Gemini, NotebookLM e Escrita Científica' } ] },
       { n: 5, data: '2026-11-09', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
+        { h: '14h00–16h00', tema: 'Ética, Segurança e SOPs' },
         { h: '16h00–18h00', tema: 'Impacto, Prática Clínica e o Papel do Profissional' } ] },
       { n: 6, data: '2026-11-16', blocos: [
-        { h: '14h00–16h00', tema: 'Por definir' },
-        { h: '16h00–18h00', tema: 'Por definir' } ] },
+        { h: '14h00–16h00', tema: 'Análise de Dados em Python e Google Colab com recurso a IA' },
+        { h: '16h00–18h00', tema: 'Análise de Dados em Python e Google Colab com recurso a IA' } ] },
       { n: 7, data: '2026-11-23', blocos: [
         { h: '14h00–16h00', tema: 'Laboratório de Projeto' },
         { h: '16h00–18h00', tema: 'Laboratório de Projeto' } ] },
